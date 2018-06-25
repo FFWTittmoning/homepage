@@ -1,0 +1,28 @@
+{{- if .Site.Menus.main }}
+ <nav class="menu">
+    <ul class="menu__list">
+	  {{- $currentNode := . }}
+      {{ range sort .Site.Menus.main }}
+      {{ if .HasChildren }}
+        <li class="menu__item pure-menu-has-children{{if or ($currentNode.IsMenuCurrent "main" .) ($currentNode.HasMenuCurrent "main" .) }} menu__item--active{{end}}">
+          <a class="menu__link" href="{{ .URL }}">{{ .Pre }}{{ .Name }}</a>
+          <ul class="menu__children">
+            {{ range .Children }}
+            <li class="menu__item{{if or ($currentNode.IsMenuCurrent "main" .) ($currentNode.HasMenuCurrent "main" .) }} menu__item--active{{end}} menu__child__item">
+              <a class="menu__link" href="{{ .URL }}">{{ .Name }}</a>
+            </li>
+            {{ end }}
+          </ul>
+      {{else}}
+        <li class="menu__item{{if or ($currentNode.IsMenuCurrent "main" .) ($currentNode.HasMenuCurrent "main" .) }} menu__item--active{{end}}">
+          <a class="menu__link" href="{{ .URL }}">{{ .Pre }}{{ .Name }}</a>
+      {{end}}
+        </li>
+      {{end}}
+    </ul>
+  </nav>
+{{ else -}}
+<hr class="divider">
+{{- end }}
+
+
